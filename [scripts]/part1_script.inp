@@ -1,0 +1,19 @@
+open C:\Users\Pro18\Projects\timeseries_analysis\[data]\krasnogorsk.gdt
+# График переменной Пульс
+gnuplot  ns2hr --time-series --with-lines
+# Графики ACF и PACF переменной Пульс
+pergm ns2hr 77 --radians
+# График периодограммы переменной Пульс
+corrgm ns2hr 100
+# График переменной Высота
+gnuplot ns1ele --time-series --with-lines
+# Графики ACF и PACF переменной Высота
+corrgm ns1ele 100
+# График периодограммы переменной Высота
+pergm ns1ele 77 --radians
+# График переменной Каденс
+gnuplot ns2cad --time-series --with-lines
+# Графики ACF и PACF переменной Каденс
+corrgm ns2cad 100
+# График периодограммы переменной Каденс
+pergm ns2cad 77 --radians
