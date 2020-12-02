@@ -1,4 +1,6 @@
 open C:\Users\Pro18\Projects\timeseries_analysis\[data]\krasnogorsk.gdt
+# Откладываем 15 измерений
+smpl 1 1485
 # График переменной Пульс
 gnuplot  ns2hr --time-series --with-lines
 # Графики ACF и PACF переменной Пульс
