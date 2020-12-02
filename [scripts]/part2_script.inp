@@ -1,0 +1,75 @@
+open C:\Users\Pro18\Projects\timeseries_analysis\[data]\krasnogorsk.gdt
+smpl 1 1485
+# Индексная переменная времени
+genr index
+rename 4 t
+setinfo t --description="Время"
+# Гармонические функции для удаления циклических трендов
+c1 = cos(2*$pi*t/297)
+s1 = sin(2*$pi*t/297)
+
+c2 = cos(2*$pi*t/248)
+s2 = sin(2*$pi*t/248)
+
+c3 = cos(2*$pi*t/124)
+s3 = sin(2*$pi*t/124)
+
+c4 = cos(2*$pi*t/114)
+s4 = sin(2*$pi*t/114)
+
+c5 = cos(2*$pi*t/106)
+s5 = sin(2*$pi*t/106)
+
+c6 = cos(2*$pi*t/99)
+s6 = sin(2*$pi*t/99)
+
+c7 = cos(2*$pi*t/93)
+s7 = sin(2*$pi*t/93)
+
+c8 = cos(2*$pi*t/87)
+s8 = sin(2*$pi*t/87)
+
+c9 = cos(2*$pi*t/44)
+s9 = sin(2*$pi*t/44)
+
+c10 = cos(2*$pi*t/36)
+s10 = sin(2*$pi*t/36)
+
+c11 = cos(2*$pi*t/33)
+s11 = sin(2*$pi*t/33)
+
+c12 = cos(2*$pi*t/31)
+s12 = sin(2*$pi*t/31)
+
+c13 = cos(2*$pi*t/28)
+s13 = sin(2*$pi*t/28)
+
+c14 = cos(2*$pi*t/14)
+s14 = sin(2*$pi*t/14)
+
+# Линейная модель на гармониках для Пульс
+ols ns2hr 0 c1 s1 c2 s2 c3 s3 c4 s4 c5 s5 c6 s6 c7 s7 c8 s8 c9 s9 c10 s10 \
+  c11 s11 c12 s12 c13 s13 c14 s14 --robust
+series hr_trend0 = $yhat
+setinfo hr_trend0 --description="Периодический тренд переменной Пульс"
+series hr_error0 = $uhat
+setinfo hr_error0 --description="Пульс без периодического тренда"
+pergm hr_error0 77 --radians
+
+# Линейная модель на гармониках для Высота
+ols ns1ele 0 c1 s1 c2 s2 c3 s3 c4 s4 c5 s5 c6 s6 c7 s7 c8 s8 c9 s9 c10 \
+  s10 c11 s11 c12 s12 c13 s13 c14 s14 --robust
+series ele_trend0 = $yhat
+setinfo ele_trend0 --description="Периодический тренд переменной Высота"
+series ele_error0 = $uhat
+setinfo ele_error0 --description="Высота без периодического тренда"
+pergm ele_error0 77 --radians
+
+# Линейная модель на гармониках для Каденс
+ols ns2cad 0 c1 s1 c2 s2 c3 s3 c4 s4 c5 s5 c6 s6 c7 s7 c8 s8 c9 s9 c10 \
+  s10 c11 s11 c12 s12 c13 s13 c14 s14 --robust
+series cad_trend0 = $yhat
+setinfo cad_trend0 --description="Периодический тренд переменной Каденс"
+series cad_error0 = $uhat
+setinfo cad_error0 --description="Каденс без периодического тренда"
+pergm cad_error0 77 --radians
