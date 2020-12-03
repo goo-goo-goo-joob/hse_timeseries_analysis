@@ -73,3 +73,36 @@ setinfo cad_trend0 --description="Периодический тренд пере
 series cad_error0 = $uhat
 setinfo cad_error0 --description="Каденс без периодического тренда"
 pergm cad_error0 77 --radians
+
+# Добавляем переменную времени для внутренне линейной модели
+t2 = t * t
+
+# Выделение полиномиального тренда для Пульс без циклической составляющей
+ols hr_error0 0 t t2 --robust
+series hr_trend1 = $yhat
+setinfo hr_trend1 --description="Полиномиальный тренд для переменной Пульс"
+series hr_error1 = $uhat
+setinfo hr_error1 --description="Пульс без трендов"
+gnuplot hr_error1 --time-series --with-lines
+pergm hr_error1 77 --radians
+corrgm hr_error1 100
+
+# Выделение полиномиального тренда для Высота без циклической составляющей
+ols ele_error0 0 t t2 --robust
+series ele_trend1 = $yhat
+setinfo ele_trend1 --description="Полиномиальный тренд для переменной Высота"
+series ele_error1 = $uhat
+setinfo ele_error1 --description="Высота без трендов"
+gnuplot ele_error1 --time-series --with-lines
+pergm ele_error1 77 --radians
+corrgm ele_error1 100
+
+# Выделение полиномиального тренда для Каденс без циклической составляющей
+ols cad_error0 0 t t2 --robust
+series cad_trend1 = $yhat
+setinfo cad_trend1 --description="Полиномиальный тренд для переменной Каденс"
+series cad_error1 = $uhat
+setinfo cad_error1 --description="Каденс без трендов"
+gnuplot cad_error1 --time-series --with-lines
+pergm cad_error1 77 --radians
+corrgm cad_error1 100
