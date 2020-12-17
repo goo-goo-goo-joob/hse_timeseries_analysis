@@ -106,3 +106,16 @@ setinfo cad_error1 --description="Каденс без трендов"
 gnuplot cad_error1 --time-series --with-lines
 pergm cad_error1 77 --radians
 corrgm cad_error1 100
+
+# Оценивание параметров линейной регрессии при наличии автокорреляции у случайной составляющей
+ols hr_error1 0 ele_error1 cad_error1 --robust
+series hr_error2 = $uhat
+setinfo hr_error2 --description="Остаточная разность основной модели"
+pergm hr_error2 77 --radians
+corrgm hr_error2 100
+
+arima 8 0 7 ; hr_error1 ele_error1 cad_trend1 0
+series hr_error3 = $uhat
+setinfo hr_error3 --description="Остаточная разность модели ARMA"
+pergm hr_error3 77 --radians
+corrgm hr_error3 100
