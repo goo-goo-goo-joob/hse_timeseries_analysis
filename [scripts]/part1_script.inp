@@ -19,3 +19,12 @@ gnuplot ns2cad --time-series --with-lines
 corrgm ns2cad 100
 # График периодограммы переменной Каденс
 pergm ns2cad 77 --radians
+# Тесты Дики-Фуллера для переменной пульс
+adf 23 ns2hr --nc --c --ct --test-down=AIC
+adf 23 ns2hr --nc --c --ct --difference --test-down=AIC
+# Тесты Дики-Фуллера для переменной высота
+adf 23 ns1ele --nc --c --ct --test-down=AIC
+adf 23 ns1ele --nc --c --ct --difference --test-down=AIC
+# Тесты Дики-Фуллера для переменной каденс
+adf 23 ns2cad --nc --c --ct --test-down=AIC
+adf 23 ns2cad --nc --c --ct --difference --test-down=AIC
