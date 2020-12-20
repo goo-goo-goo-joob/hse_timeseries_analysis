@@ -119,3 +119,18 @@ series hr_error3 = $uhat
 setinfo hr_error3 --description="Остаточная разность модели ARMA"
 pergm hr_error3 77 --radians
 corrgm hr_error3 100
+
+# автономные динамические модели для пульса
+arima 1 0 0 ; hr_error1
+arima 2 0 0 ; hr_error1
+arima 3 0 0 ; hr_error1
+arima 4 0 0 ; hr_error1
+arima 3 0 1 ; hr_error1
+arima 3 0 2 ; hr_error1
+arima 3 0 3 ; hr_error1
+arima 3 0 4 ; hr_error1
+arima 3 0 5 ; hr_error1
+arima 3 0 6 ; hr_error1
+arima 3 0 7 ; hr_error1
+arima 3 0 8 ; hr_error1
+arima 3 1 0 ; ns2hr
