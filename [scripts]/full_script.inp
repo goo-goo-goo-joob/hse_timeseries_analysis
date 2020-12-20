@@ -168,6 +168,7 @@ arima 3 1 0 ; ns2hr
 
 # прогноз
 fcast 1486 1495 --static
+fcast 1486 1495 forecast
 
 # task 4
 

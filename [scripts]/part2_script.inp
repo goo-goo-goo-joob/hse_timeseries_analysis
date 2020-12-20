@@ -1,4 +1,6 @@
 open C:\Users\Pro18\Projects\timeseries_analysis\[data]\krasnogorsk.gdt
+# task 2
+
 smpl 1 1485
 # Индексная переменная времени
 genr index
@@ -120,6 +122,8 @@ setinfo hr_error3 --description="Остаточная разность моде�
 pergm hr_error3 77 --radians
 corrgm hr_error3 100
 
+# task 3
+
 # автономные динамические модели для пульса
 arima 1 0 0 ; hr_error1
 arima 2 0 0 ; hr_error1
@@ -137,3 +141,5 @@ arima 3 1 0 ; ns2hr
 
 # прогноз
 fcast 1486 1495 --static
+upper95 = forecast + 4.47*1.15^(t-1486)
+lower95 = forecast - 4.47*1.15^(t-1486)
