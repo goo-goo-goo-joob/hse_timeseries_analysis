@@ -1,5 +1,37 @@
 open C:\Users\Pro18\Projects\timeseries_analysis\[data]\krasnogorsk.gdt
-smpl 1 1485
+
+# task 1
+
+# График переменной Пульс
+gnuplot  ns2hr --time-series --with-lines
+# Графики ACF и PACF переменной Пульс
+pergm ns2hr 77 --radians
+# График периодограммы переменной Пульс
+corrgm ns2hr 100
+# График переменной Высота
+gnuplot ns1ele --time-series --with-lines
+# Графики ACF и PACF переменной Высота
+corrgm ns1ele 100
+# График периодограммы переменной Высота
+pergm ns1ele 77 --radians
+# График переменной Каденс
+gnuplot ns2cad --time-series --with-lines
+# Графики ACF и PACF переменной Каденс
+corrgm ns2cad 100
+# График периодограммы переменной Каденс
+pergm ns2cad 77 --radians
+# Тесты Дики-Фуллера для переменной пульс
+adf 23 ns2hr --nc --c --ct --test-down=AIC
+adf 23 ns2hr --nc --c --ct --difference --test-down=AIC
+# Тесты Дики-Фуллера для переменной высота
+adf 23 ns1ele --nc --c --ct --test-down=AIC
+adf 23 ns1ele --nc --c --ct --difference --test-down=AIC
+# Тесты Дики-Фуллера для переменной каденс
+adf 23 ns2cad --nc --c --ct --test-down=AIC
+adf 23 ns2cad --nc --c --ct --difference --test-down=AIC
+
+# task 2
+
 # Индексная переменная времени
 genr index
 rename 4 t
@@ -114,11 +146,10 @@ setinfo hr_error2 --description="Остаточная разность осно�
 pergm hr_error2 77 --radians
 corrgm hr_error2 100
 
-arima 8 0 7 ; hr_error1 ele_error1 cad_trend1 0
-series hr_error3 = $uhat
-setinfo hr_error3 --description="Остаточная разность модели ARMA"
-pergm hr_error3 77 --radians
-corrgm hr_error3 100
+# task 3
+
+# Откладываем 15 измерений
+smpl 1 1485
 
 # автономные динамические модели для пульса
 arima 1 0 0 ; hr_error1
@@ -137,3 +168,11 @@ arima 3 1 0 ; ns2hr
 
 # прогноз
 fcast 1486 1495 --static
+
+# task 4
+
+arima 8 0 7 ; hr_error1 ele_error1 cad_trend1 0
+series hr_error3 = $uhat
+setinfo hr_error3 --description="Остаточная разность модели ARMA"
+pergm hr_error3 77 --radians
+corrgm hr_error3 100
